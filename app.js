@@ -1,12 +1,14 @@
 const express = require('express')
 const morgan = require('morgan')
+const bodyParser = require('body-parser')
+const path = require('path')
 const models = require('./models')
-const app = express()
+const app = express() // creates an express app
 
-
-
-
-app.use(morgan('dev'))
+app.use(morgan('dev')) // logging middleware
+app.use(express.static(path.join(__dirname, "./public")))
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
   res.send('Hello, World!')
